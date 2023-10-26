@@ -75,3 +75,15 @@ app.put('/api/articulos/:id', (req, res) => {
         }
     });
 });
+app.delete('/api/articulos/:id', (req, res) => {
+    const articleId = req.params.id;
+
+    const sql = "DELETE FROM articulos WHERE id = ?";
+    conexion.query(sql, [articleId], (error, results) => {
+        if (error) {
+            throw error;
+        } else {
+            res.send(`Article with ID ${articleId} has been deleted.`);
+        }
+    });
+});
