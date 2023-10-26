@@ -58,3 +58,20 @@ app.post('/api/articulos',(req,res)=>{
         }
     })
 })
+app.put('/api/articulos/:id', (req, res) => {
+    const articleId = req.params.id;
+    const updatedArticle = {
+        descripcion: req.body.descripcion,
+        precio: req.body.precio,
+        stock: req.body.stock
+    };
+
+    const sql = "UPDATE articulos SET ? WHERE id = ?";
+    conexion.query(sql, [updatedArticle, articleId], (error, results) => {
+        if (error) {
+            throw error;
+        } else {
+            res.send(results);
+        }
+    });
+});
